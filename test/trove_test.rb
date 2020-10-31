@@ -81,7 +81,17 @@ class TroveTest < Minitest::Test
     assert_equal "Empty config", error.message
   end
 
-  def test_missing_storage
+  def test_config_invalid_yaml
+    File.write ".trove.yml", <<~EOS
+      :
+    EOS
+    error = assert_raises(Psych::SyntaxError) do
+      Trove.pull("test.txt")
+    end
+    assert_match "did not find expected key", error.message
+  end
+
+  def test_storage_missing
     File.write ".trove.yml", <<~EOS
       hello: world
     EOS
@@ -91,7 +101,7 @@ class TroveTest < Minitest::Test
     assert_equal "Missing storage", error.message
   end
 
-  def test_invalid_storage_url
+  def test_storage_invalid_url
     File.write ".trove.yml", <<~EOS
       storage: [bad_value]
     EOS
@@ -101,7 +111,7 @@ class TroveTest < Minitest::Test
     assert_equal "Invalid storage", error.message
   end
 
-  def test_invalid_storage_provider
+  def test_storage_invalid_provider
     File.write ".trove.yml", <<~EOS
       storage: bad://test/trove
     EOS
@@ -109,15 +119,5 @@ class TroveTest < Minitest::Test
       Trove.pull("test.txt")
     end
     assert_equal "Invalid storage provider: bad", error.message
-  end
-
-  def test_invalid_yaml
-    File.write ".trove.yml", <<~EOS
-      :
-    EOS
-    error = assert_raises(Psych::SyntaxError) do
-      Trove.pull("test.txt")
-    end
-    assert_match "did not find expected key", error.message
   end
 end
