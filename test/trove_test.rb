@@ -81,4 +81,14 @@ class TroveTest < Minitest::Test
     end
     assert_equal "Invalid storage provider: bad", error.message
   end
+
+  def test_invalid_yaml
+    File.write ".trove.yml", <<~EOS
+      :
+    EOS
+    error = assert_raises(Psych::SyntaxError) do
+      Trove.pull("test.txt")
+    end
+    assert_match "did not find expected key", error.message
+  end
 end
