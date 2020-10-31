@@ -120,16 +120,11 @@ module Trove
       Digest::MD5.file(src).hexdigest != info[:md5]
     end
 
-    # TODO test file not found
     def config
       @config ||= begin
-        begin
-          config = YAML.load_file(config_path)
-          raise "Empty config" unless config.is_a?(Hash)
-          config
-        rescue Errno::ENOENT
-          raise "Config not found"
-        end
+        config = YAML.load_file(config_path)
+        raise "Empty config" unless config.is_a?(Hash)
+        config
       end
     end
 
