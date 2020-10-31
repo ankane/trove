@@ -200,7 +200,7 @@ This makes it easy to perform operations from code, iRuby notebooks, and the Rai
 
 ## Automated Training
 
-By default, Trove tracks files in `.trove.yml` so you can deploy specific versions with `trove pull`. However, this functionality is entirely optional. Disable it with:
+By default, Trove tracks files in `.trove.yml` to make it easy to deploy specific versions with code changes. However, this functionality is entirely optional. Disable it with:
 
 ```yml
 vcs: false
