@@ -132,7 +132,7 @@ remote:        Asset precompilation completed (30.00s)
 
 ### Docker
 
-And add to your `Dockerfile`:
+Add to your `Dockerfile`:
 
 ```Dockerfile
 RUN bundle exec trove pull
