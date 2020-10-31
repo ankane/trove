@@ -124,7 +124,9 @@ module Trove
     def config
       @config ||= begin
         begin
-          YAML.load_file(config_path)
+          config = YAML.load_file(config_path)
+          raise "Empty config" unless config.is_a?(Hash)
+          config
         rescue Errno::ENOENT
           raise "Config not found"
         end
@@ -157,7 +159,14 @@ module Trove
 
     def storage
       @storage ||= begin
-        uri = URI.parse(config["storage"])
+        raise "Missing storage" unless config["storage"]
+
+        uri =
+          begin
+            URI.parse(config["storage"])
+          rescue URI::InvalidURIError => e
+            raise "Invalid storage"
+          end
 
         case uri.scheme
         when "s3"

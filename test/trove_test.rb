@@ -72,6 +72,35 @@ class TroveTest < Minitest::Test
     assert_equal "Config not found", error.message
   end
 
+  def test_config_empty
+    File.write ".trove.yml", <<~EOS
+    EOS
+    error = assert_raises do
+      Trove.pull("test.txt")
+    end
+    assert_equal "Empty config", error.message
+  end
+
+  def test_missing_storage
+    File.write ".trove.yml", <<~EOS
+      hello: world
+    EOS
+    error = assert_raises do
+      Trove.pull("test.txt")
+    end
+    assert_equal "Missing storage", error.message
+  end
+
+  def test_invalid_storage_url
+    File.write ".trove.yml", <<~EOS
+      storage: [bad_value]
+    EOS
+    error = assert_raises do
+      Trove.pull("test.txt")
+    end
+    assert_equal "Invalid storage", error.message
+  end
+
   def test_invalid_storage_provider
     File.write ".trove.yml", <<~EOS
       storage: bad://test/trove
