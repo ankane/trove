@@ -82,7 +82,7 @@ If your production servers only need to pull files, only give them `s3:GetObject
 
 Git is great for code, but it’s not ideal for large files like models. Instead, we use an object store like Amazon S3 to store and version them.
 
-Trove creates an `trove` directory for you to use as a workspace. Files in the directory are ignored by Git, but can be pushed and pulled from the object store. By default, files are tracked in `.trove.yml` to make it easy to deploy specific versions with code changes.
+Trove creates a `trove` directory for you to use as a workspace. Files in this directory are ignored by Git but can be pushed and pulled from the object store. By default, files are tracked in `.trove.yml` to make it easy to deploy specific versions with code changes.
 
 ## Getting Started
 
