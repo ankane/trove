@@ -124,15 +124,35 @@ module Trove
     def config
       @config ||= begin
         begin
-          YAML.load_file(".trove.yml")
+          YAML.load_file(config_path)
         rescue Errno::ENOENT
           raise "Config not found"
         end
       end
     end
 
+    def config_path
+      @config_path ||= search_tree(".trove.yml")
+    end
+
+    def config_dir
+      File.dirname(config_path)
+    end
+
+    def search_tree(file)
+      path = Dir.pwd
+      # prevent infinite loop
+      20.times do
+        absolute_file = File.join(path, file)
+        return absolute_file if File.exist?(absolute_file)
+        path = File.dirname(path)
+        break if path == "/"
+      end
+      raise "Config not found"
+    end
+
     def root
-      @root ||= config["root"] || "trove"
+      @root ||= File.join(config_dir, config["root"] || "trove")
     end
 
     def storage

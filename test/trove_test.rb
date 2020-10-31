@@ -7,7 +7,7 @@ class TroveTest < Minitest::Test
     File.write ".trove.yml", <<~EOS
       storage: s3://#{ENV.fetch("S3_BUCKET")}/trove
     EOS
-    [:config, :root, :storage].each do |var|
+    [:config, :config_path, :root, :storage].each do |var|
       Trove.instance_variable_set("@#{var}", nil)
     end
   end
