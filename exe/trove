@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+# handle interrupts
+trap("SIGINT") { abort }
+
+require "trove"
+require "trove/cli"
+
+begin
+  Trove::CLI.start
+rescue => e
+  raise e if ENV["DEBUG"]
+  abort e.message
+end
