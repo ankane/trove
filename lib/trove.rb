@@ -30,7 +30,7 @@ module Trove
     # could use upload_file method for multipart uploads over a certain size
     # but multipart uploads have extra cost and cleanup, so keep it simple for now
     def push(filename)
-      src = File.join(root, filename)
+      src = resolve_path(filename)
       raise "File not found" unless File.exist?(src)
 
       info = storage.info(filename)
@@ -89,7 +89,7 @@ module Trove
     private
 
     def pull_file(filename, version: nil, all: false)
-      dest = File.join(root, filename)
+      dest = resolve_path(filename)
 
       if !version
         file = (config["files"] || []).find { |f| f["name"] == filename }
@@ -153,8 +153,12 @@ module Trove
       raise "Config not found"
     end
 
+    def resolve_path(filename)
+      File.join(config_dir, root, filename)
+    end
+
     def root
-      @root ||= File.join(config_dir, config["root"] || "trove")
+      @root ||= config["root"] || "trove"
     end
 
     def storage
