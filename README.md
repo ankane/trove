@@ -208,6 +208,15 @@ vcs: false
 
 This is useful if you want to automate training or build more complex workflows.
 
+## Non-Ruby
+
+Trove can be used in non-Ruby projects as well.
+
+```sh
+gem install trove
+trove init
+```
+
 ## History
 
 View the [changelog](https://github.com/ankane/trove/blob/master/CHANGELOG.md)
