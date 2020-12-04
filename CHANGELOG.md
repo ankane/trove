@@ -1,4 +1,4 @@
-## 0.1.1 (unreleased)
+## 0.1.1 (2020-12-04)
 
 - Added support for running in subdirectories
 
