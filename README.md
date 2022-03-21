@@ -9,7 +9,7 @@ Works great with [XGBoost](https://github.com/ankane/xgboost), [Torch.rb](https:
 Add this line to your application’s Gemfile:
 
 ```ruby
-gem 'trove'
+gem "trove"
 ```
 
 And run:
