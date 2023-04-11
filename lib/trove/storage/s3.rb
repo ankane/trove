@@ -34,7 +34,7 @@ module Trove
           # delete file if interrupted
           File.unlink(tmp) if File.exist?(tmp)
         end
-      rescue Aws::S3::Errors::NoSuchKey, Aws::S3::Errors::NotFound => e
+      rescue Aws::S3::Errors::NoSuchKey, Aws::S3::Errors::NotFound
         raise "File not found"
       end
 
@@ -59,7 +59,7 @@ module Trove
           version: resp.version_id,
           md5: resp.etag.gsub('"', "")
         }
-      rescue Aws::S3::Errors::NoSuchKey, Aws::S3::Errors::NotFound => e
+      rescue Aws::S3::Errors::NoSuchKey, Aws::S3::Errors::NotFound
         nil
       end
 
@@ -68,7 +68,7 @@ module Trove
         options[:version_id] = version if version
         client.delete_object(**options)
         true
-      rescue Aws::S3::Errors::NoSuchKey, Aws::S3::Errors::NotFound => e
+      rescue Aws::S3::Errors::NoSuchKey, Aws::S3::Errors::NotFound
         false
       end
 
