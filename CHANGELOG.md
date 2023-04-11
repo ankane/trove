@@ -1,4 +1,4 @@
-## 0.2.0 (unreleased)
+## 0.2.0 (2023-04-11)
 
 - Improved error messages
 - Fixed error with missing dependencies
