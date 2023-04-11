@@ -19,6 +19,6 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = ">= 3"
 
   spec.add_dependency "aws-sdk-s3"
-  spec.add_dependency "nokogiri" # for aws-sdk-s3
+  spec.add_dependency "rexml" # for aws-sdk-s3
   spec.add_dependency "thor"
 end
