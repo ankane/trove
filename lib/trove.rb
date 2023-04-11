@@ -4,8 +4,8 @@ require "uri"
 require "yaml"
 
 # modules
-require "trove/utils"
-require "trove/version"
+require_relative "trove/utils"
+require_relative "trove/version"
 
 module Trove
   # storage
