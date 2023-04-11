@@ -1,7 +1,7 @@
 ## 0.2.0 (unreleased)
 
-- Improved error message for permissions errors
-- Fixed error with Ruby 3+
+- Improved error messages
+- Fixed error with missing dependencies
 - Fixed error with `list` when no files
 - Dropped support for Ruby < 3
 
