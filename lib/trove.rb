@@ -1,5 +1,6 @@
 # stdlib
 require "digest/md5"
+require "uri"
 require "yaml"
 
 # modules

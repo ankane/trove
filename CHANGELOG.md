@@ -1,3 +1,7 @@
+## 0.1.2 (unreleased)
+
+- Fixed error with Ruby 3+
+
 ## 0.1.1 (2020-12-04)
 
 - Added support for running in subdirectories
