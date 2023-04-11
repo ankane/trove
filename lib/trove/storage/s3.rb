@@ -34,9 +34,8 @@ module Trove
           # delete file if interrupted
           File.unlink(tmp) if File.exist?(tmp)
         end
-      rescue Aws::S3::Errors::AccessDenied
-        raise "Access denied"
-      rescue Aws::S3::Errors::ServiceError
+      rescue Aws::S3::Errors::ServiceError => e
+        check_error(e)
         raise "File not found"
       end
 
@@ -61,9 +60,8 @@ module Trove
           version: resp.version_id,
           md5: resp.etag.gsub('"', "")
         }
-      rescue Aws::S3::Errors::AccessDenied
-        raise "Access denied"
-      rescue Aws::S3::Errors::ServiceError
+      rescue Aws::S3::Errors::ServiceError => e
+        check_error(e)
         nil
       end
 
@@ -72,9 +70,8 @@ module Trove
         options[:version_id] = version if version
         client.delete_object(**options)
         true
-      rescue Aws::S3::Errors::AccessDenied
-        raise "Access denied"
-      rescue Aws::S3::Errors::ServiceError
+      rescue Aws::S3::Errors::ServiceError => e
+        check_error(e)
         false
       end
 
@@ -120,6 +117,10 @@ module Trove
 
       def key(filename)
         prefix ? "#{prefix}/#{filename}" : filename
+      end
+
+      def check_error(e)
+        raise e if e.is_a?(Aws::S3::Errors::AccessDenied)
       end
     end
   end
