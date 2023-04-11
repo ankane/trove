@@ -77,7 +77,7 @@ module Trove
         end
       end
       column_names = columns.map { |c| c.to_s.sub(/_at\z/, "").upcase }
-      widths = columns.map.with_index { |c, i| [column_names[i].size, data.map { |r| r[c].to_s.size }.max].max }
+      widths = columns.map.with_index { |c, i| [column_names[i].size, data.map { |r| r[c].to_s.size }.max || 0].max }
 
       output = String.new("")
       str = widths.map { |w| "%-#{w}s" }.join("     ") + "\n"

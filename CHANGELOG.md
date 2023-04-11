@@ -1,6 +1,7 @@
 ## 0.1.2 (unreleased)
 
 - Fixed error with Ruby 3+
+- Fixed error with `list` when no files
 
 ## 0.1.1 (2020-12-04)
 
