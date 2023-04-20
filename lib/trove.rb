@@ -159,11 +159,12 @@ module Trove
 
     def storage
       @storage ||= begin
-        raise "Missing storage" unless config["storage"]
+        storage_url = config["storage"] || ENV.fetch('TROVE_STORAGE_URL', nil)
+        raise "Missing storage" unless storage_url
 
         uri =
           begin
-            URI.parse(config["storage"])
+            URI.parse(storage_url)
           rescue URI::InvalidURIError => e
             raise "Invalid storage"
           end
