@@ -12,6 +12,10 @@ class TroveTest < Minitest::Test
     end
   end
 
+  def teardown
+    ENV['TROVE_STORAGE_URL'] = nil
+  end
+
   def test_works
     Trove.delete("test.txt")
 
@@ -29,6 +33,20 @@ class TroveTest < Minitest::Test
 
     File.write("trove/test.txt", "hello!")
 
+    Trove.pull("test.txt")
+
+    assert_equal "hello", File.read("trove/test.txt")
+  end
+
+  def test_storage_url_in_env
+    File.write ".trove.yml", <<~EOS
+      hello: world
+    EOS
+    ENV["TROVE_STORAGE_URL"] = "s3://#{ENV.fetch("S3_BUCKET")}/trove"
+
+    File.write("trove/test.txt", "hello")
+    Trove.push("test.txt")
+    File.unlink("trove/test.txt")
     Trove.pull("test.txt")
 
     assert_equal "hello", File.read("trove/test.txt")
