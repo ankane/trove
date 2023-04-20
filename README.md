@@ -21,6 +21,8 @@ trove init
 
 And [configure your storage](#storage) in `.trove.yml`.
 
+Optionally you can set up URL to your bucket using `TROVE_STORAGE_URL` env variable.
+
 ## Storage
 
 ### Amazon S3
