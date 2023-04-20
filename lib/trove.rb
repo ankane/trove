@@ -165,7 +165,7 @@ module Trove
         uri =
           begin
             URI.parse(storage_url)
-          rescue URI::InvalidURIError => e
+          rescue URI::InvalidURIError
             raise "Invalid storage"
           end
 
@@ -173,7 +173,7 @@ module Trove
         when "s3"
           Storage::S3.new(
             bucket: uri.host,
-            prefix: uri.path[1..-1]
+            prefix: uri.path[1..]
           )
         else
           raise "Invalid storage provider: #{uri.scheme}"
