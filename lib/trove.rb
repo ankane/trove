@@ -159,7 +159,7 @@ module Trove
 
     def storage
       @storage ||= begin
-        storage_url = config["storage"] || ENV.fetch('TROVE_STORAGE_URL', nil)
+        storage_url = config["storage"] || ENV.fetch("TROVE_STORAGE_URL", nil)
         raise "Missing storage" unless storage_url
 
         uri =
