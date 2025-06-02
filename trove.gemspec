@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = ["trove"]
 
-  spec.required_ruby_version = ">= 3"
+  spec.required_ruby_version = ">= 3.2"
 
   spec.add_dependency "aws-sdk-s3"
   spec.add_dependency "rexml" # for aws-sdk-s3
