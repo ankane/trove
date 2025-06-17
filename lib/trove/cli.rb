@@ -76,7 +76,7 @@ module Trove
           data.each { |r| r[c] ||= "<none>" }
         end
       end
-      column_names = columns.map { |c| c.to_s.sub(/_at\z/, "").upcase }
+      column_names = columns.map { |c| c.to_s.delete_suffix("_at").upcase }
       widths = columns.map.with_index { |c, i| [column_names[i].size, data.map { |r| r[c].to_s.size }.max || 0].max }
 
       output = String.new("")

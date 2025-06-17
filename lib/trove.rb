@@ -67,7 +67,7 @@ module Trove
         # update version
         file["version"] = version
 
-        File.write(".trove.yml", config.to_yaml.sub(/\A---\n/, ""))
+        File.write(".trove.yml", config.to_yaml.delete_prefix("---\n"))
       end
 
       {
