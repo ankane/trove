@@ -38,9 +38,9 @@ module Trove
         raise "File not found"
       end
 
-      def upload(src, filename)
+      def upload(src, filename, &block)
         on_chunk_sent = lambda do |_, current_size, total_size|
-          yield current_size, total_size
+          block.call(current_size, total_size)
         end
         resp = nil
         File.open(src, "rb") do |file|
