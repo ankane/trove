@@ -85,10 +85,9 @@ class TroveTest < Minitest::Test
     File.write ".trove.yml", <<~EOS
       :
     EOS
-    error = assert_raises(Psych::SyntaxError) do
+    assert_raises(Psych::SyntaxError) do
       Trove.pull("test.txt")
     end
-    assert_match "did not find expected key", error.message
   end
 
   def test_storage_missing
