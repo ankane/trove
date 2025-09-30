@@ -164,7 +164,7 @@ module Trove
         uri =
           begin
             URI.parse(config["storage"])
-          rescue URI::InvalidURIError => e
+          rescue URI::InvalidURIError
             raise "Invalid storage"
           end
 
