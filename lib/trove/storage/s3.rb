@@ -1,5 +1,6 @@
 require "aws-sdk-s3"
 require "fileutils"
+require "tmpdir"
 
 module Trove
   module Storage
@@ -15,9 +16,8 @@ module Trove
         current_size = 0
         total_size = nil
 
-        # TODO better path
-        tmp = "#{Dir.tmpdir}/trove-#{Time.now.to_f}"
-        begin
+        Dir.mktmpdir do |tmpdir|
+          tmp = "#{tmpdir}/trove"
           File.open(tmp, "wb") do |file|
             options = {bucket: bucket, key: key(filename)}
             options[:version_id] = version if version
@@ -30,9 +30,6 @@ module Trove
             end
           end
           FileUtils.mv(tmp, dest)
-        ensure
-          # delete file if interrupted
-          File.unlink(tmp) if File.exist?(tmp)
         end
       rescue Aws::S3::Errors::NoSuchKey, Aws::S3::Errors::NotFound
         raise "File not found"
